@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabrication Details</title>
+    <style>
+        :root {
+            --primary-color: #3a1c71;
+            --secondary-color: #d76d77;
+            --accent-color: #ffaf7b;
+            --light-bg: #f8f9fa;
+            --dark-text: #333;
+            --light-text: #fff;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s ease;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 30px 20px;
+            color: var(--dark-text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header:before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            clip-path: ellipse(70% 60% at 50% 100%);
+        }
+
+        h1 {
+            color: var(--light-text);
+            margin: 0;
+            font-size: 36px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .form-container {
+            padding: 20px 30px 40px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin: 25px 0 15px;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        h3:before {
+            content: "";
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(58, 28, 113, 0.3);
+        }
+
+        .form-section:nth-child(1) h3:before {
+            content: "1";
+        }
+
+        .form-section:nth-child(2) h3:before {
+            content: "2";
+        }
+
+        .form-section:nth-child(3) h3:before {
+            content: "3";
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .image-gallery {
+            margin: 20px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 3px solid white;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border-color: var(--secondary-color);
+        }
+
+        select {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            background-color: white;
+            font-size: 16px;
+            transition: var(--transition);
+            color: var(--dark-text);
+            box-sizing: border-box;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%233a1c71' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 14px;
+            padding-right: 45px;
+        }
+
+        select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(58, 28, 113, 0.2);
+        }
+
+        select option {
+            padding: 10px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            margin-top: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(58, 28, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.8s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(58, 28, 113, 0.4);
+        }
+
+        button:hover:before {
+            left: 100%;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .form-container {
+                padding: 15px 20px 30px;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+            
+            .image-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 10px;
+            }
+            
+            .image-gallery img {
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Fabrication Details</h1>
+        </div>
+        
+        <div class="form-container">
+            <form action="{{ url_for('fabricate_granite', order_item_id=order_item_id) }}" method="POST">
+                <div class="form-section">
+                    <h3>Edging</h3>
+                    <div class="image-gallery">
+                        <img src="{{ url_for('static', filename='pics/edging1.jpeg') }}" alt="Edging 1">
+                        <img src="{{ url_for('static', filename='pics/edging2.jpeg') }}" alt="Edging 2">
+                        <img src="{{ url_for('static', filename='pics/edging3.jpeg') }}" alt="Edging 3">
+                        <img src="{{ url_for('static', filename='pics/edging4.jpeg') }}" alt="Edging 4">
+                        <img src="{{ url_for('static', filename='pics/edging5.jpeg') }}" alt="Edging 5">
+                    </div>
+                    <select name="edging" required>
+                        <option value="">Select an Edging Style</option>
+                        <option value="bullnose">Bullnose</option>
+                        <option value="halfbullnose">Half Bullnose</option>
+                        <option value="waterfall">Waterfall Edge</option>
+                        <option value="bevealed">Bevealed Edge</option>
+                        <option value="ogee">Ogee Edge</option>
+                    </select>
+                </div>
+
+                <div class="form-section">
+                    <h3>Thickness</h3>
+                    <select name="thickness" required>
+                        <option value="">Select Thickness</option>
+                        <option value="10-14mm">10-14mm</option>
+                        <option value="16-20mm">16-20mm</option>
+                        <option value="30mm">30mm</option>
+                        <option value="40-50mm">40-50mm</option>
+                        <option value="52-60mm">52-60mm</option>
+                        <option value="60-80mm">60-80mm</option>
+                    </select>
+                </div>
+
+                <div class="form-section">
+                    <h3>Shaping</h3>
+                    <div class="image-gallery">
+                        <img src="{{ url_for('static', filename='pics/shape1.jpeg') }}" alt="Shape 1">
+                        <img src="{{ url_for('static', filename='pics/shape2.jpeg') }}" alt="Shape 2">
+                        <img src="{{ url_for('static', filename='pics/shape3.jpeg') }}" alt="Shape 3">
+                        <img src="{{ url_for('static', filename='pics/shape4.jpeg') }}" alt="Shape 4">
+                        <img src="{{ url_for('static', filename='pics/shape5.jpeg') }}" alt="Shape 5">
+                    </div>
+                    <select name="shaping" required>
+                        <option value="">Select a Shape</option>
+                        <option value="rectangle">Rectangle</option>
+                        <option value="triangle">Triangle</option>
+                        <option value="square">Square</option>
+                        <option value="circle">Circle</option>
+                        <option value="oval">Oval</option>
+                    </select>
+                </div>
+
+                <button type="submit">Fabricate Granite</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

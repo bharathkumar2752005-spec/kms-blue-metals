@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Bill</title>
+    <style>
+        /* Modern Color Scheme */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --secondary-gradient: linear-gradient(135deg, #2575fc 0%, #11998e 100%);
+            --accent-color: #38ef7d;
+            --light-bg: #f5f7fa;
+            --dark-text: #2c3e50;
+            --light-text: #fff;
+            --highlight: #e74c3c;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 100%);
+            color: var(--dark-text);
+            min-height: 100vh;
+        }
+
+        .bill-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 0;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bill-header-bg {
+            background: var(--primary-gradient);
+            padding: 2.5rem 2rem;
+            color: var(--light-text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bill-header-bg::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            z-index: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--light-text);
+            margin: 0;
+            font-size: 2.5rem;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            z-index: 1;
+        }
+
+        .bill-header {
+            text-align: center;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bill-header p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .bill-content {
+            padding: 2rem;
+        }
+
+        .bill-details {
+            margin-bottom: 2rem;
+            background-color: rgba(245, 247, 250, 0.5);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border-left: 4px solid #6a11cb;
+        }
+
+        .bill-details h3 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: #6a11cb;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .bill-details h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary-gradient);
+        }
+
+        .details-row {
+            display: flex;
+            margin: 0.8rem 0;
+            align-items: center;
+        }
+
+        .details-row strong {
+            min-width: 150px;
+            color: #2575fc;
+        }
+
+        .details-row span {
+            flex-grow: 1;
+            font-size: 1.1rem;
+        }
+
+        .bill-total {
+            background: linear-gradient(to right, rgba(106, 17, 203, 0.1), transparent);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            text-align: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6a11cb;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bill-total::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--primary-gradient);
+        }
+
+        .bill-total p {
+            margin: 0;
+        }
+
+        .amount {
+            font-size: 2rem;
+            color: var(--highlight);
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
+        }
+
+        .print-btn {
+            background: var(--primary-gradient);
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+        }
+
+        .done-btn {
+            background: var(--secondary-gradient);
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .animated-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        @media print {
+            .print-btn, .done-btn {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .bill-container {
+                box-shadow: none;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bill-container">
+        <div class="bill-header-bg">
+            <h1>Booking Bill</h1>
+            <div class="bill-header">
+                <p>Thank you for choosing Premium Vehicle Rental!</p>
+               
+            </div>
+        </div>
+        
+        <div class="bill-content">
+            <div class="bill-details">
+                <h3>Booking Details</h3>
+                <div class="details-row">
+                    <strong>Vehicle Name:</strong>
+                    <span>{{ vehicle_name }}</span>
+                </div>
+                <div class="details-row">
+                    <strong>Rental Duration:</strong>
+                    <span>{{ rental_duration }}</span>
+                </div>
+                <div class="details-row">
+                    <strong>Driver Required:</strong>
+                    <span>{{ driver_required }}</span>
+                </div>
+                <div class="details-row">
+                    <strong>From Date:</strong>
+                    <span>{{ from_date }}</span>
+                </div>
+                <div class="details-row">
+                    <strong>To Date:</strong>
+                    <span>{{ to_date }}</span>
+                </div>
+            </div>
+            
+            <div class="bill-total">
+                <p>Total Amount: <span class="amount">₹{{ total_amount }}</span></p>
+            </div>
+            
+            <div class="button-container">
+
+                <button class="btn done-btn" onclick="window.location.href='{{ url_for('home') }}'">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create animated circles in the background
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerBg = document.querySelector('.bill-header-bg');
+            const animatedBg = document.createElement('div');
+            animatedBg.className = 'animated-background';
+            
+            // Create circles
+            for (let i = 0; i < 6; i++) {
+                const circle = document.createElement('div');
+                circle.className = 'circle';
+                
+                // Random size between 50px and 200px
+                const size = Math.random() * 150 + 50;
+                circle.style.width = `${size}px`;
+                circle.style.height = `${size}px`;
+                
+                // Random position
+                circle.style.left = `${Math.random() * 100}%`;
+                circle.style.top = `${Math.random() * 100}%`;
+                
+                // Add animation
+                circle.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
+                
+                animatedBg.appendChild(circle);
+            }
+            
+            headerBg.appendChild(animatedBg);
+        });
+    </script>
+</body>
+</html>

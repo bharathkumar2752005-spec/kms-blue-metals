@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --secondary-color: #f39c12;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --card-bg: #fff;
+            --border-color: #ddd;
+            --success-color: #27ae60;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Header Section */
+        .header {
+            background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .user-details h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-details p {
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .user-details i {
+            width: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Card Styles */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-header span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        th, td {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        th {
+            background-color: rgba(52, 152, 219, 0.1);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #777;
+            font-style: italic;
+        }
+        
+        /* Inner Tables (Granite) */
+        .inner-table {
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .inner-table th, .inner-table td {
+            padding: 0.6rem 0.8rem;
+            font-size: 0.95rem;
+        }
+        
+        .fabrication-details {
+            padding: 0;
+            list-style: none;
+        }
+        
+        .fabrication-details li {
+            padding: 0.3rem 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e67e22;
+        }
+        
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background-color: rgba(39, 174, 96, 0.2);
+            color: var(--success-color);
+        }
+        
+        .badge-primary {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--primary-color);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            color: #777;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            table, th, td {
+                font-size: 0.9rem;
+            }
+            
+            th, td {
+                padding: 0.6rem;
+            }
+            
+            .responsive-table {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- User Profile Header -->
+        <div class="header">
+            <div class="user-info">
+                <div class="user-avatar">
+                    {{ user.name[0] }}
+                </div>
+                <div class="user-details">
+                    <h1>Welcome, {{ user.name }}</h1>
+                    <p><i>✉️</i> {{ user.email }}</p>
+                    <p><i>📍</i> {{ user.address }}</p>
+                    <p><i>📱</i> {{ user.phone }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Product Orders Section -->
+        <div class="card">
+            <div class="card-header">
+                <span>📦 Your Product Orders</span>
+                <span class="badge badge-primary">{{ product_orders|length if product_orders else 0 }} Orders</span>
+            </div>
+            <div class="card-body">
+                {% if product_orders %}
+                <div class="responsive-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Total Price</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for booking in product_orders %}
+                                {% for product in booking.products_booked %}
+                                <tr>
+                                    <td>{{ product.product.name }}</td>
+                                    <td>{{ product.quantity }}</td>
+                                    <td>₹{{ product.quantity * product.product.price_per_unit }}</td>
+                                    
+                                </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <p>You have no product orders yet.</p>
+                    
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Vehicle Rentals Section -->
+        <div class="card">
+            <div class="card-header">
+                <span>🚗 Your Vehicle Rentals</span>
+                <span class="badge badge-primary">{{ vehicle_rentals|length if vehicle_rentals else 0 }} Rentals</span>
+            </div>
+            <div class="card-body">
+                {% if vehicle_rentals %}
+                <div class="responsive-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Vehicle Name</th>
+                                <th>Duration</th>
+                                <th>From Date</th>
+                                <th>To Date</th>
+                                <th>Driver</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for rental in vehicle_rentals %}
+                            <tr>
+                                <td>{{ rental.rental.name }}</td>
+                                <td>{{ rental.rental_duration }}</td>
+                                <td>{{ rental.from_date.strftime('%b %d, %Y') }}</td>
+                                <td>{{ rental.to_date.strftime('%b %d, %Y') }}</td>
+                                <td>{{ 'Yes' if rental.driver_required else 'No' }}</td>
+                                <td>₹{{ rental.amount }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <p>You have no vehicle rentals yet.</p>
+
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Granite Orders Section -->
+        <div class="card">
+            <div class="card-header">
+                <span>🪨 Your Granite Orders</span>
+                <span class="badge badge-primary">{{ granite_orders|length if granite_orders else 0 }} Orders</span>
+            </div>
+            <div class="card-body">
+                {% if granite_orders %}
+                <div class="responsive-table">
+                    {% for order in granite_orders %}
+                    <table class="inner-table">
+                        <thead>
+                            <tr>
+                                <th>Granite Type</th>
+                                <th>Square Feet</th>
+                                <th>Amount</th>
+                                <th>Fabrication Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order.order_items %}
+                            <tr>
+                                <td>{{ item.granite.name }}</td>
+                                <td>{{ item.square_feet }}</td>
+                                <td>₹{{ item.amount }}</td>
+                                <td>
+                                    {% if item.fabrication %}
+                                    <ul class="fabrication-details">
+                                        <li><strong>Edging:</strong> {{ item.fabrication.edging }}</li>
+                                        <li><strong>Thickness:</strong> {{ item.fabrication.thickness }}</li>
+                                        <li><strong>Shaping:</strong> {{ item.fabrication.shaping }}</li>
+                                        <li><strong>Fee:</strong> ₹{{ item.fabrication.fabrication_fee }}</li>
+                                    </ul>
+                                    {% else %}
+                                    <span style="color: #777; font-style: italic;">No Fabrication Added</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if not loop.last %}<div style="margin: 1.5rem 0;"></div>{% endif %}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <p>You have no granite orders yet.</p>
+
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2025 tpm blue metals  - All rights reserved</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - T.P.M Blue Metals and Constructions</title>
+    <link rel="stylesheet" href="../css/about.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<style>
+/* ===== RESET & BASE STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #1e3a8a;
+    --secondary-color: #0ea5e9;
+    --accent-color: #f59e0b;
+    --dark-color: #0f172a;
+    --light-color: #f8fafc;
+    --gray-color: #64748b;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    
+    --heading-font: 'Playfair Display', serif;
+    --body-font: 'Poppins', sans-serif;
+    --accent-font: 'Montserrat', sans-serif;
+    
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: var(--body-font);
+    line-height: 1.7;
+    color: var(--dark-color);
+    background-color: #f0f4f8;
+    overflow-x: hidden;
+}
+
+.page-wrapper {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8)),
+        url('https://images.unsplash.com/photo-1553697388-94e804e2f0f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.15;
+}
+
+/* ===== HEADER STYLES ===== */
+.header {
+    padding: 40px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
+    opacity: 0.9;
+    z-index: -1;
+    border-radius: 0 0 50% 50% / 0 0 100px 100px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.header-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+}
+
+.company-image {
+    position: relative;
+    flex: 0 0 40%;
+    overflow: hidden;
+}
+
+.logo-image {
+    display: block;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+.logo-image:hover {
+    transform: scale(1.03);
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 15px;
+    font-family: var(--accent-font);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border-radius: 0 5px 5px 0;
+}
+
+.company-info {
+    flex: 0 0 55%;
+    padding: 20px 0 20px 40px;
+}
+
+.company-title {
+    font-family: var(--heading-font);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.company-title span {
+    color: var(--accent-color);
+}
+
+.separator {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    margin: 20px 0;
+    border-radius: 2px;
+}
+
+.primary-service {
+    font-family: var(--accent-font);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.secondary-service {
+    font-family: var(--accent-font);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--gray-color);
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.tagline-text {
+    font-family: var(--body-font);
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--dark-color);
+    margin-top: 20px;
+    font-weight: 300;
+}
+
+.highlight {
+    background: linear-gradient(transparent 60%, rgba(245, 158, 11, 0.3) 40%);
+    padding: 0 5px;
+    font-weight: 600;
+}
+
+/* ===== CONTENT SECTION STYLES ===== */
+.content-section {
+    padding: 60px 0;
+}
+
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.image-container {
+    flex: 0 0 48%;
+    position: relative;
+    overflow: hidden;
+}
+
+.content-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+}
+
+.content-image:hover {
+    transform: scale(1.03);
+}
+
+.image-caption {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 15px;
+    font-family: var(--accent-font);
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 5px 0 0 5px;
+}
+
+.contact-container {
+    flex: 0 0 48%;
+}
+
+.contact-card {
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.contact-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.contact-header-icon {
+    font-size: 24px;
+    color: white;
+}
+
+.contact-title {
+    color: white;
+    font-family: var(--heading-font);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.contact-body {
+    padding: 30px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.contact-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+.icon-circle i {
+    color: white;
+    font-size: 20px;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-label {
+    font-size: 14px;
+    color: var(--gray-color);
+    margin-bottom: 5px;
+}
+
+.contact-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+/* ===== CTA SECTION ===== */
+.cta-section {
+    margin: 40px 0 60px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 40px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.cta-title {
+    color: white;
+    font-family: var(--heading-font);
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.cta-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+}
+
+.cta-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-family: var(--accent-font);
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+}
+
+.cta-button:hover {
+    background-color: #e67e22;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button:active {
+    transform: translateY(-1px);
+}
+
+/* ===== NAVIGATION STYLES ===== */
+.navigation {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.back-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-family: var(--accent-font);
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.back-button:hover {
+    background-color: #1e40af;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:active {
+    transform: translateY(-1px);
+}
+
+/* ===== FOOTER STYLES ===== */
+.footer {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+@media (max-width: 1200px) {
+    .header-content {
+        flex-direction: column;
+    }
+    
+    .company-image {
+        flex: 0 0 100%;
+        margin-bottom: 30px;
+    }
+    
+    .company-info {
+        flex: 0 0 100%;
+        padding: 0;
+        text-align: center;
+    }
+    
+    .separator {
+        margin: 20px auto;
+    }
+}
+
+@media (max-width: 992px) {
+    .content-container {
+        flex-direction: column;
+    }
+    
+    .image-container, .contact-container {
+        flex: 0 0 100%;
+    }
+    
+    .image-container {
+        margin-bottom: 40px;
+    }
+    
+    .cta-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .cta-content {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 20px 0;
+    }
+    
+    .company-title {
+        font-size: 28px;
+    }
+    
+    .primary-service {
+        font-size: 24px;
+    }
+    
+    .secondary-service {
+        font-size: 18px;
+    }
+    
+    .content-image {
+        height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-content {
+        padding: 15px;
+    }
+    
+    .logo-image {
+        height: 220px;
+    }
+    
+    .company-title {
+        font-size: 24px;
+    }
+    
+    .primary-service {
+        font-size: 20px;
+    }
+    
+    .secondary-service {
+        font-size: 16px;
+    }
+    
+    .tagline-text {
+        font-size: 16px;
+    }
+    
+    .contact-header {
+        padding: 15px;
+    }
+    
+    .contact-title {
+        font-size: 20px;
+    }
+    
+    .contact-body {
+        padding: 20px;
+    }
+    
+    .icon-circle {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .contact-text {
+        font-size: 16px;
+    }
+    
+    .cta-title {
+        font-size: 22px;
+    }
+    
+    .cta-section {
+        padding: 30px 20px;
+    }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromTop {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+</style>
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <div class="background-overlay"></div>
+        
+        <header class="header">
+            <div class="header-content" data-aos="fade-down">
+                <div class="company-image">
+                    <img class="logo-image" src="{{ url_for('static', filename='pics/images (5).jpeg') }}" alt="T.P.M Blue Metals Logo">
+                    <div class="image-overlay">
+                        <span>ESTABLISHED 1995</span>
+                    </div>
+                </div>
+                <div class="company-info">
+                    <div class="company-name">
+                        <h1 class="company-title">T.P.M Blue Metals <span></span> </h1>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="company-services">
+                        <h2 class="primary-service">Stone Crushers</h2>
+                        <h3 class="secondary-service">Granite Fabrication</h3>
+                    </div>
+                    <div class="company-tagline">
+                        <p class="tagline-text"><span class="highlight">Premuim Granite</span> to Decorate Your Dream Hall</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <section class="content-section">
+            <div class="content-container">
+                <div class="image-container" data-aos="fade-right">
+                    <img class="content-image" src="{{ url_for('static', filename='pics/350tph-stone-crusher-for-sand-and-gravel-production.webp') }}" alt="Stone Crusher">
+                    <div class="image-caption">
+                        <span>Premium Quality Stone Crushing</span>
+                    </div>
+                </div>
+                
+                <div class="contact-container" data-aos="fade-left">
+                    <div class="contact-card">
+                        <div class="contact-header">
+                            <i class="fas fa-headset contact-header-icon"></i>
+                            <h3 class="contact-title">Contact Us</h3>
+                        </div>
+                        
+                        <div class="contact-body">
+                            <div class="contact-item">
+                                <div class="icon-circle">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <span class="contact-label">Phone</span>
+                                    <span class="contact-text">9873488000</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="icon-circle">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <span class="contact-label">Email</span>
+                                    <span class="contact-text">tpmbluemetals@gmail.com</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="icon-circle">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <span class="contact-label">Location</span>
+                                    <span class="contact-text">Thiruvakkarai, Villupuram</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="cta-section" data-aos="zoom-in">
+            <div class="cta-content">
+                <h3 class="cta-title"></h3>
+                <p class="cta-text">Contact us today for a Stones</p>
+            </div>
+            <button class="cta-button" type="button" onclick="location.href='{{ url_for('fourcategory') }}'">Get a Quote</button>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <button class="back-button" type="button" onclick="location.href='{{ url_for('home') }}'">
+            <i class="fas fa-arrow-left"></i> BACK
+        </button>
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2023 T.P.M Blue Metals and Constructions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 1000,
+                once: true
+            });
+        });
+    </script>
+</body>
+</html>

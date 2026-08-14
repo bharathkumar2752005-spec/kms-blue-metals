@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabrication Charges</title>
+</head>
+<body>
+    <h1>Fabrication Charges</h1>
+    <p><strong>Edging:</strong> {{ edging }}</p>
+    <p><strong>Thickness:</strong> {{ thickness }}</p>
+    <p><strong>Shaping:</strong> {{ shaping }}</p>
+    <h2>Total Fabrication Charges: {{ total_fabrication_charges }}</h2>
+    <a href="{{ url_for('granite_order_details', order_id=order_id) }}">Back to Order Details</a>
+</body>
+</html>

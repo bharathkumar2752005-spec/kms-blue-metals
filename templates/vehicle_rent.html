@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Rental Service</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .vehicles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .vehicle-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .vehicle-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .vehicle-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .vehicle-details {
+            padding: 1.5rem;
+        }
+
+        .vehicle-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .vehicle-price {
+            font-size: 1.25rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .vehicle-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        .booking-options {
+            margin-top: 1rem;
+        }
+
+        .booking-options select, .booking-options input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .driver-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .driver-option label {
+            margin-left: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .booking-summary {
+            background-color: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .booking-summary h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .summary-total {
+            font-weight: bold;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+
+        .search-bar {
+            margin-bottom: 2rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .vehicles-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Premium Vehicle Rental</h1>
+        <p>Choose your ride, set your hours, and hit the road</p>
+    </header>
+
+    <div class="container">
+        
+
+        <div class="vehicles-container" id="vehicles-container">
+            {% for vehicle in vehicles %}
+            <div class="vehicle-card">
+                
+                <div class="vehicle-details">
+                    <h3 class="vehicle-name">{{ vehicle.name }}</h3>
+                    <p class="vehicle-price">₹${{ vehicle.hourly_rate }}/hr | ₹${{ vehicle.daily_rate }}/day</p>
+                    
+                    <div class="booking-options">
+                        <label for="from-date-{{ vehicle.id }}">From:</label>
+                        <input type="date" id="from-date-{{ vehicle.id }}" class="from-date" data-vehicle-id="{{ vehicle.id }}">
+                        
+                        <label for="to-date-{{ vehicle.id }}">To:</label>
+                        <input type="date" id="to-date-{{ vehicle.id }}" class="to-date" data-vehicle-id="{{ vehicle.id }}">
+
+                        <select class="duration-select" data-vehicle-id="{{ vehicle.id }}">
+                            <option value="hourly">Hourly Rental</option>
+                            <option value="daily">Daily Rental</option>
+                        </select>
+                        <div class="hourly-option">
+                            <select class="hours-select" data-vehicle-id="{{ vehicle.id }}">
+                                {% for i in range(1, 13) %}
+                                <option value="{{ i }}">{{ i }} hour{{ 's' if i > 1 else '' }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="daily-option" style="display: none;">
+                            <select class="days-select" data-vehicle-id="{{ vehicle.id }}">
+                                {% for i in range(1, 15) %}
+                                <option value="{{ i }}">{{ i }} day{{ 's' if i > 1 else '' }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="driver-option">
+                            <input type="checkbox" id="driver-{{ vehicle.id }}" class="driver-checkbox" data-vehicle-id="{{ vehicle.id }}">
+                            <label for="driver-{{ vehicle.id }}">Driver Required</label>
+                        </div>
+                        <button class="btn book-btn" data-vehicle-id="{{ vehicle.id }}">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="booking-summary" id="booking-summary">
+            <h3>Booking Summary</h3>
+            <div class="summary-item">
+                <span>Selected Vehicle:</span>
+                <span id="summary-vehicle">-</span>
+            </div>
+            <div class="summary-item">
+                <span>Rental Duration:</span>
+                <span id="summary-duration">-</span>
+            </div>
+            <div class="summary-item">
+                <span>Driver:</span>
+                <span id="summary-driver">-</span>
+            </div>
+            <div class="summary-item summary-total">
+                <span>Total:</span>
+                <span id="summary-total">-</span>
+            </div>
+            <form action="/rent_vehicle" method="POST" id="rental-form">
+                <input type="hidden" name="vehicle_id" id="vehicle-id">
+                <input type="hidden" name="rental_duration" id="rental-duration">
+                <input type="hidden" name="driver_required" id="driver-required">
+                <input type="hidden" name="amount" id="total-amount">
+                <input type="hidden" name="from_date" id="from-date">
+                <input type="hidden" name="to_date" id="to-date">
+                <button type="submit" class="btn">Confirm Booking</button>
+            </form>
+            
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Premium Vehicle Rental. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Sample vehicle data
+        const vehicles = [
+            {
+                id: 1,
+                name: "Tractor",
+                image: "/static/pics/tractor.jpeg", // Corrected path
+                hourlyRate: 160,
+                dailyRate: 1500,
+                
+             
+            },
+            {
+                id: 2,
+                name: "Lorry",
+                image: "/static/pics/lorry.jpeg",
+                hourlyRate: 200,
+                dailyRate: 2100,
+                
+            },
+            {
+                id: 3,
+                name: "JCB",
+                image: "/static/pics/jcb.jpg",
+                hourlyRate: 270,
+                dailyRate: 4000,
+                
+            },
+            {
+                id: 4,
+                name: "Hitachi",
+                image: "/static/pics/hitachi.jpeg",
+                hourlyRate: 250,
+                dailyRate: 3550,
+               
+            },
+            {
+                id: 5,
+                name: "Tipper",
+                image: "/static/pics/tipper.jpg",
+                hourlyRate: 250,
+                dailyRate: 2400,
+              
+            },
+            {
+                id: 6,
+                name: "Crane",
+                image: "/static/pics/crane.jpg",
+                hourlyRate: 300,
+                dailyRate: 3700,
+               
+            }
+        ];
+
+        // Current selection
+        let selectedVehicle = null;
+        let selectedDuration = 'hourly';
+        let selectedHours = 1;
+        let selectedDays = 1;
+        let driverRequired = false;
+        const driverRate = { hourly: 15, daily: 100 };
+
+        // DOM loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            renderVehicles(vehicles);
+            setupSearchFilter();
+        });
+
+        // Render vehicle cards
+        function renderVehicles(vehiclesToRender) {
+            const container = document.getElementById('vehicles-container');
+            container.innerHTML = '';
+
+            vehiclesToRender.forEach(vehicle => {
+                const card = document.createElement('div');
+                card.className = 'vehicle-card';
+                card.innerHTML = `
+                    <div class="vehicle-image">
+                        <img src="${vehicle.image}" alt="${vehicle.name}">
+                    </div>
+                    <div class="vehicle-details">
+                        <h3 class="vehicle-name">${vehicle.name}</h3>
+                        <p class="vehicle-price">₹${vehicle.hourlyRate}/hr | ₹${vehicle.dailyRate}/day</p>
+                        
+                        <div class="booking-options">
+                            <label for="from-date-${vehicle.id}">From:</label>
+                            <input type="date" id="from-date-${vehicle.id}" class="from-date" data-vehicle-id="${vehicle.id}">
+                            
+                            <label for="to-date-${vehicle.id}">To:</label>
+                            <input type="date" id="to-date-${vehicle.id}" class="to-date" data-vehicle-id="${vehicle.id}">
+
+                            <select class="duration-select" data-vehicle-id="${vehicle.id}">
+                                <option value="hourly">Hourly Rental</option>
+                                <option value="daily">Daily Rental</option>
+                            </select>
+                            <div class="hourly-option">
+                                <select class="hours-select" data-vehicle-id="${vehicle.id}">
+                                    ${generateOptions(12, 'hour')}
+                                </select>
+                            </div>
+                            <div class="daily-option" style="display: none;">
+                                <select class="days-select" data-vehicle-id="${vehicle.id}">
+                                    ${generateOptions(14, 'day')}
+                                </select>
+                            </div>
+                            <div class="driver-option">
+                                <input type="checkbox" id="driver-${vehicle.id}" class="driver-checkbox" data-vehicle-id="${vehicle.id}">
+                                <label for="driver-${vehicle.id}">Driver Required</label>
+                            </div>
+                            <button class="btn book-btn" data-vehicle-id="${vehicle.id}">Book Now</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+
+                // Add event listeners
+                const durationSelect = card.querySelector('.duration-select');
+                durationSelect.addEventListener('change', handleDurationChange);
+
+                const bookBtn = card.querySelector('.book-btn');
+                bookBtn.addEventListener('click', handleBooking);
+
+                const driverCheckbox = card.querySelector('.driver-checkbox');
+                driverCheckbox.addEventListener('change', handleDriverChange);
+            });
+        }
+
+        // Generate options for select elements
+        function generateOptions(count, unit) {
+            let options = '';
+            for (let i = 1; i <= count; i++) {
+                options += `<option value="${i}">${i} ${unit}${i > 1 ? 's' : ''}</option>`;
+            }
+            return options;
+        }
+
+        // Handle duration change
+        function handleDurationChange(e) {
+            const vehicleId = e.target.getAttribute('data-vehicle-id');
+            const card = e.target.closest('.vehicle-card');
+            const hourlyOption = card.querySelector('.hourly-option');
+            const dailyOption = card.querySelector('.daily-option');
+            
+            if (e.target.value === 'hourly') {
+                hourlyOption.style.display = 'block';
+                dailyOption.style.display = 'none';
+            } else {
+                hourlyOption.style.display = 'none';
+                dailyOption.style.display = 'block';
+            }
+        }
+
+        // Handle driver requirement change
+        function handleDriverChange(e) {
+            driverRequired = e.target.checked;
+        }
+
+        // Handle booking
+        function handleBooking(e) {
+            const vehicleId = parseInt(e.target.getAttribute('data-vehicle-id'));
+            const card = e.target.closest('.vehicle-card');
+
+            // Get selected vehicle
+            selectedVehicle = vehicles.find(v => v.id === vehicleId);
+
+            // Get duration option
+            const durationSelect = card.querySelector('.duration-select');
+            selectedDuration = durationSelect.value;
+
+            // Get time values
+            if (selectedDuration === 'hourly') {
+                const hoursSelect = card.querySelector('.hours-select');
+                selectedHours = parseInt(hoursSelect.value);
+            } else {
+                const daysSelect = card.querySelector('.days-select');
+                selectedDays = parseInt(daysSelect.value);
+            }
+
+            // Get driver requirement
+            const driverCheckbox = card.querySelector('.driver-checkbox');
+            driverRequired = driverCheckbox.checked;
+
+            // Get from and to dates
+            const fromDate = card.querySelector('.from-date').value;
+            const toDate = card.querySelector('.to-date').value;
+
+            if (!fromDate || !toDate) {
+                alert('Please select both "from" and "to" dates.');
+                return;
+            }
+
+            // Show booking summary
+            showBookingSummary(fromDate, toDate);
+        }
+
+        // Show booking summary
+        function showBookingSummary(fromDate, toDate) {
+            const summaryElement = document.getElementById('booking-summary');
+            const vehicleElement = document.getElementById('summary-vehicle');
+            const durationElement = document.getElementById('summary-duration');
+            const driverElement = document.getElementById('summary-driver');
+            const totalElement = document.getElementById('summary-total');
+
+            let total = 0;
+            let durationText = '';
+
+            if (selectedDuration === 'hourly') {
+                total = selectedVehicle.hourlyRate * selectedHours;
+                durationText = `${selectedHours} hour${selectedHours > 1 ? 's' : ''}`;
+                if (driverRequired) {
+                    total += driverRate.hourly * selectedHours;
+                }
+            } else {
+                total = selectedVehicle.dailyRate * selectedDays;
+                durationText = `${selectedDays} day${selectedDays > 1 ? 's' : ''}`;
+                if (driverRequired) {
+                    total += driverRate.daily * selectedDays;
+                }
+            }
+
+            vehicleElement.textContent = selectedVehicle.name;
+            durationElement.textContent = `${durationText} (From: ${fromDate}, To: ${toDate})`;
+            driverElement.textContent = driverRequired ? 'Yes' : 'No';
+            totalElement.textContent = `₹${total}`;
+
+            // Populate the hidden form fields
+            document.getElementById('vehicle-id').value = selectedVehicle.id;
+            document.getElementById('rental-duration').value = durationText;
+            document.getElementById('driver-required').value = driverRequired;
+            document.getElementById('total-amount').value = total;
+            document.getElementById('from-date').value = fromDate;
+            document.getElementById('to-date').value = toDate;
+
+            summaryElement.style.display = 'block';
+
+            // Scroll to booking summary
+            summaryElement.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Setup search filter
+        function setupSearchFilter() {
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const filteredVehicles = vehicles.filter(vehicle => 
+                    vehicle.name.toLowerCase().includes(searchTerm) ||
+                    vehicle.type.toLowerCase().includes(searchTerm)
+                );
+                renderVehicles(filteredVehicles);
+            });
+        }
+
+        // Confirm booking
+        document.getElementById('confirm-booking').addEventListener('click', function() {
+            alert('Booking confirmed! Thank you for choosing our service.');
+            document.getElementById('booking-summary').style.display = 'none';
+            
+            // Reset selection
+            selectedVehicle = null;
+            selectedDuration = 'hourly';
+            selectedHours = 1;
+            selectedDays = 1;
+            driverRequired = false;
+        });
+    </script>
+</body>
+</html>

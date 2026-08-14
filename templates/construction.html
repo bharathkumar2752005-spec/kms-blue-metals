@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Construction Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            transform: translateY(0);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(90deg, #ffffff, #e0f7fa, #ffffff);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shine 6s linear infinite;
+        }
+        
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 650px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+        
+        .card {
+            background-color: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            animation: fadeIn 1s ease-out 0.5s both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-image {
+            flex: 0 0 40%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(25, 118, 210, 0.85) 0%, rgba(0, 188, 212, 0.85) 100%);
+        }
+        
+        .card-image-content {
+            position: relative;
+            z-index: 1;
+            padding: 35px;
+            text-align: center;
+            color: white;
+        }
+        
+        .card-icon {
+            font-size: 65px;
+            margin-bottom: 25px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .image-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .image-text {
+            font-size: 15px;
+            opacity: 0.95;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .feature-item {
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .feature-icon {
+            margin-right: 12px;
+            font-size: 18px;
+            color: #e1f5fe;
+        }
+        
+        .card-body {
+            flex: 1;
+            padding: 40px;
+        }
+        
+        .form-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #1976D2;
+            position: relative;
+            padding-bottom: 14px;
+        }
+        
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #1976D2 0%, #00BCD4 100%);
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #455A64;
+            font-size: 15px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #1976D2;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .status-notes {
+            height: 80px;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #1976D2 0%, #00BCD4 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #00BCD4 0%, #1976D2 100%);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .submit-btn:hover::before {
+            left: 0;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .form-icon {
+            position: absolute;
+            right: 15px;
+            top: 45px;
+            color: #90A4AE;
+            font-size: 18px;
+        }
+        
+        .status-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .status-option {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .status-radio {
+            display: none;
+        }
+        
+        .status-label {
+            display: block;
+            background-color: #f5f7fa;
+            border: 2px solid #e1e1e1;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .status-radio:checked + .status-label {
+            font-weight: 600;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .status-planning .status-label:hover { background-color: #fff8e1; border-color: #FFD54F; }
+        .status-progress .status-label:hover { background-color: #e1f5fe; border-color: #4FC3F7; }
+        .status-completed .status-label:hover { background-color: #e8f5e9; border-color: #66BB6A; }
+        .status-hold .status-label:hover { background-color: #fbe9e7; border-color: #FF8A65; }
+        
+        .status-radio:checked + .status-label.status-planning-label {
+            background-color: #FFF8E1;
+            border-color: #FFD54F;
+            color: #F57F17;
+        }
+        
+        .status-radio:checked + .status-label.status-progress-label {
+            background-color: #E1F5FE;
+            border-color: #4FC3F7;
+            color: #0277BD;
+        }
+        
+        .status-radio:checked + .status-label.status-completed-label {
+            background-color: #E8F5E9;
+            border-color: #66BB6A;
+            color: #2E7D32;
+        }
+        
+        .status-radio:checked + .status-label.status-hold-label {
+            background-color: #FBE9E7;
+            border-color: #FF8A65;
+            color: #D84315;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 10px;
+            animation: fadeIn 1s ease-out 1s both;
+        }
+        
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 220px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+            transform: translateY(0);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+            color: white;
+            padding: 20px;
+            font-size: 16px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            font-weight: 500;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 20px;
+            padding: 15px;
+            animation: fadeIn 1s ease-out 1.5s both;
+        }
+        
+        .alert {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #00897B 0%, #4DB6AC 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            transform: translateX(200%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1000;
+        }
+        
+        .alert.show {
+            transform: translateX(0);
+        }
+        
+        .alert-icon {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .alert-message {
+            font-weight: 500;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 900px) {
+            .card {
+                flex-direction: column;
+            }
+            
+            .card-image {
+                min-height: 250px;
+            }
+            
+            .gallery-item {
+                height: 180px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card-body {
+                padding: 30px;
+            }
+            
+            .image-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .status-option {
+                min-width: 100%;
+            }
+            
+            .card-body {
+                padding: 25px;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item {
+                height: 200px;
+            }
+            
+            .alert {
+                right: 15px;
+                left: 15px;
+                top: 15px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Dream Home Construction</h1>
+            <p>Transform your vision into reality with our premium construction services</p>
+        </div>
+        
+        <div class="card">
+            <div class="card-image" style="background-image: url('/api/placeholder/800/1200')">
+                <div class="card-image-content">
+                    <div class="card-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h2 class="image-title">Professional Construction</h2>
+                    <p class="image-text">We build your dream home with expertise, quality materials, and attention to detail.</p>
+                    
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-icon"></i>
+                            <span>Expert Architects & Engineers</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-icon"></i>
+                            <span>Premium Building Materials</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-icon"></i>
+                            <span>On-time Project Completion</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-icon"></i>
+                            <span>Transparent Project Management</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <h2 class="form-title">Project Information</h2>
+                <form id="constructionForm">
+
+                    <label for="statusNotes">Project Status</label>
+                    <input type="text" class="status-notes" placeholder="Enter Your Project Status" required>
+
+                   
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" required>
+                        <i class="fas fa-calendar form-icon"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="budget">Budget </label>
+                        <input type="number" id="budget" min="0" step="1000" placeholder="Enter your budget" required>
+                        <i class="fas fa-dollar-sign form-icon"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectDetails">Project Details</label>
+                        <textarea id="projectDetails" placeholder="Enter construction details, specifications, and special requirements" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-save"></i> Save Project
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="image-gallery">
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/300" alt="Modern House Design" class="gallery-image">
+                <div class="gallery-caption">Modern Minimalist Home</div>
+            </div>
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/300" alt="Interior Design" class="gallery-image">
+                <div class="gallery-caption">Luxury Interior Finishing</div>
+            </div>
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/300" alt="Construction Site" class="gallery-image">
+                <div class="gallery-caption">Construction in Progress</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            © 2025 Dream Home Construction. All rights reserved.
+        </div>
+    </div>
+    
+    <div class="alert" id="alert">
+        <div class="alert-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="alert-message">Project details saved successfully!</div>
+    </div>
+    
+    <script>
+        // Simple form handling
+        document.getElementById('constructionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const status = document.querySelector('input[name="projectStatus"]:checked').value;
+            const statusNotes = document.getElementById('statusNotes').value;
+            const startDate = document.getElementById('startDate').value;
+            const budget = document.getElementById('budget').value;
+            const details = document.getElementById('projectDetails').value;
+            
+            // Create project object
+            const project = {
+                status,
+                statusNotes,
+                startDate,
+                budget,
+                details,
+                createdAt: new Date().toISOString()
+            };
+            
+            // Save to local storage (you can modify this to send to a server)
+            localStorage.setItem('constructionProject', JSON.stringify(project));
+            
+            // Show confirmation alert
+            const alert = document.getElementById('alert');
+            alert.classList.add('show');
+            
+            // Hide alert after 3 seconds
+            setTimeout(function() {
+                alert.classList.remove('show');
+            }, 3000);
+            
+            // Reset form fields that should be cleared
+            document.getElementById('statusNotes').value = '';
+            document.getElementById('projectDetails').value = '';
+        });
+        
+        // Set today's date as the default
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('startDate').value = today;
+        
+        // Status radio button event listeners
+        const statusOptions = document.querySelectorAll('input[name="projectStatus"]');
+        statusOptions.forEach(option => {
+            option.addEventListener('change', function() {
+                const statusNotes = document.getElementById('statusNotes');
+                
+                // Provide default text based on selected status
+                if(this.value === 'planning') {
+                    statusNotes.placeholder = "Enter planning details, next milestones, or pending approvals...";
+                } else if(this.value === 'in-progress') {
+                    statusNotes.placeholder = "Enter current construction phase, completion percentage, or active tasks...";
+                } else if(this.value === 'completed') {
+                    statusNotes.placeholder = "Enter completion date, final inspection details, or warranty information...";
+                } else if(this.value === 'on-hold') {
+                    statusNotes.placeholder = "Enter reason for hold, expected resumption date, or pending issues...";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

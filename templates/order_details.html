@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+</head>
+<body>
+    <h1>Order Details</h1>
+    <p><strong>Granite Type:</strong> {{ order_details.granite_name }}</p>
+    <p><strong>Price per Sq. Ft.:</strong> {{ order_details.price_per_sqft }}</p>
+    <p><strong>Square Feet:</strong> {{ order_details.square_feet }}</p>
+    <p><strong>Total Price:</strong> {{ order_details.total_price }}</p>
+    <a href="{{ url_for('granite_shop') }}">Back to Shop</a>
+</body>
+</html>

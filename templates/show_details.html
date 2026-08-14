@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Details Submitted</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: #f4f4f4;
+            padding: 20px;
+            display: inline-block;
+            border-radius: 10px;
+        }
+        .button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Details Submitted Successfully!</h2>
+        <p><strong>Name:</strong> {{ user.name }}</p>
+        <p><strong>Gender:</strong> {{ user.gender }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Address:</strong> {{ user.address }}</p>
+        <p><strong>State:</strong> {{ user.state }}</p>
+        <p><strong>Contact:</strong> {{ user.contact }}</p>
+        <a href="{{ url_for('cart') }}" class="button">Next Page</a>
+    </div>
+</body>
+</html>

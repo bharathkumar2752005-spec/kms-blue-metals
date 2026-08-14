@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structure Specifications</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-image: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+        }
+        
+        .form-container {
+            flex: 1;
+        }
+        
+        .image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .card-body {
+            padding: 40px;
+        }
+        
+        .form-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #1e3c72;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        }
+        
+        .form-groups {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e1e1e1;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+            background-color: #f9fafc;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #1e3c72;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.2);
+            background-color: white;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-icon {
+            position: absolute;
+            right: 16px;
+            top: 48px;
+            color: #777;
+            font-size: 18px;
+        }
+        
+        .foundation-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .foundation-option {
+            position: relative;
+        }
+        
+        .foundation-radio {
+            display: none;
+        }
+        
+        .foundation-label {
+            display: block;
+            border: 2px solid #e1e1e1;
+            border-radius: 12px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            height: 100%;
+            background-color: #f9fafc;
+        }
+        
+        .foundation-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+            display: block;
+            color: #777;
+            transition: all 0.3s;
+        }
+        
+        .foundation-name {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .foundation-description {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .foundation-radio:checked + .foundation-label {
+            border-color: #1e3c72;
+            background-color: rgba(30, 60, 114, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .foundation-radio:checked + .foundation-label .foundation-icon {
+            color: #1e3c72;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .btn {
+            padding: 16px 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            border: none;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+            letter-spacing: 0.5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .card {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .image-container {
+                height: 300px;
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 30px;
+            }
+            
+            .foundation-types {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .card-body {
+                padding: 25px;
+            }
+            
+            .form-title {
+                font-size: 24px;
+            }
+            
+            .foundation-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons-container {
+                margin-top: 30px;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 15px 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="form-title">Structure Specifications</h2>
+                    
+                    <form id="structureSpecsForm">
+                        <div class="form-groups">
+                            <div class="form-group">
+                                <label for="address">Property Address</label>
+                                <textarea id="address" placeholder="Enter complete property address" required></textarea>
+                                <i class="fas fa-map-marker-alt form-icon"></i>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="area">Total Area (Square Feet)</label>
+                                <input type="number" id="area" min="100" placeholder="Enter total area" required>
+                                <i class="fas fa-vector-square form-icon"></i>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="floors">Number of Floors</label>
+                                <select id="floors" required>
+                                    <option value="">Select option</option>
+                                    <option value="1">1 - Single Story</option>
+                                    <option value="2">2 - Two Story</option>
+                                    <option value="3">3 - Three Story</option>
+                                    <option value="4">4+ - Multi-Story Building</option>
+                                </select>
+                                <i class="fas fa-building form-icon"></i>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Foundation Type</label>
+                                <div class="foundation-types">
+                                    <div class="foundation-option">
+                                        <input type="radio" id="foundation-slab" name="foundationType" value="slab" class="foundation-radio" checked>
+                                        <label for="foundation-slab" class="foundation-label">
+                                            <i class="fas fa-square foundation-icon"></i>
+                                            <span class="foundation-name">Concrete Slab</span>
+                                            <span class="foundation-description">Poured concrete, typically 4-6 inches thick. Best for warm climates.</span>
+                                        </label>
+                                    </div>
+                                    <div class="foundation-option">
+                                        <input type="radio" id="foundation-crawlspace" name="foundationType" value="crawlspace" class="foundation-radio">
+                                        <label for="foundation-crawlspace" class="foundation-label">
+                                            <i class="fas fa-arrows-alt-v foundation-icon"></i>
+                                            <span class="foundation-name">Crawlspace</span>
+                                            <span class="foundation-description">Elevated foundation with 1-3 ft space underneath. Good for ventilation.</span>
+                                        </label>
+                                    </div>
+                                    <div class="foundation-option">
+                                        <input type="radio" id="foundation-basement" name="foundationType" value="basement" class="foundation-radio">
+                                        <label for="foundation-basement" class="foundation-label">
+                                            <i class="fas fa-house-damage foundation-icon"></i>
+                                            <span class="foundation-name">Full Basement</span>
+                                            <span class="foundation-description">8+ ft deep foundation that creates additional living space.</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="buttons-container">
+                            <button type="submit" class="btn" id="saveButton">
+                                <i class="fas fa-save"></i> Save Specifications
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-container">
+            <img src="/api/placeholder/800/800" alt="Modern building structure">
+        </div>
+    </div>
+    
+    <script>
+        // Form elements
+        const addressInput = document.getElementById('address');
+        const areaInput = document.getElementById('area');
+        const floorsSelect = document.getElementById('floors');
+        
+        // Form submission
+        const structureSpecsForm = document.getElementById('structureSpecsForm');
+        
+        structureSpecsForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const specifications = {
+                address: addressInput.value,
+                area: areaInput.value,
+                floors: floorsSelect.value,
+                foundationType: document.querySelector('input[name="foundationType"]:checked').value
+            };
+            
+            // Save to local storage (you can modify this to send to a server)
+            localStorage.setItem('structureSpecifications', JSON.stringify(specifications));
+            
+            // Show confirmation with animation
+            const btn = document.getElementById('saveButton');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check-circle"></i> Specifications Saved!';
+            btn.style.backgroundColor = '#28a745';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.backgroundColor = '';
+            }, 2000);
+        });
+        
+        // Set default values if available in localStorage
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedSpecs = JSON.parse(localStorage.getItem('structureSpecifications'));
+            
+            if (savedSpecs) {
+                // Populate form fields
+                addressInput.value = savedSpecs.address || '';
+                areaInput.value = savedSpecs.area || '';
+                floorsSelect.value = savedSpecs.floors || '';
+                
+                // Set foundation type
+                if (savedSpecs.foundationType) {
+                    document.querySelector(`input[value="${savedSpecs.foundationType}"]`).checked = true;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

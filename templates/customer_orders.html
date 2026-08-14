@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f4f4f4;
+            color: #555;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 5px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 10px 5px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .no-data {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Order Summary for {{ customer.name }}</h1>
+    <p><strong>Email:</strong> {{ customer.email }}</p>
+    <p><strong>Phone:</strong> {{ customer.phone }}</p>
+
+    <hr>
+
+    <!-- Product Orders Section -->
+    <div class="section">
+        <h2>🛒 Product Orders</h2>
+        {% if product_orders %}
+        <p>Below are the details of the products ordered by the customer:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order Date</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in product_orders %}
+                    {% for product in booking.products_booked %}
+                    <tr>
+                        <td>
+                            {% if booking.order_date %}
+                                {{ booking.order_date.strftime('%B %d, %Y') }}
+                            {% else %}
+                                <span class="no-data">No Date</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ product.product.name }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>₹{{ product.quantity * product.product.price_per_unit }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-data">No product orders found for this customer.</p>
+        {% endif %}
+    </div>
+
+    <hr>
+
+    <!-- Vehicle Rentals Section -->
+    <div class="section">
+        <h2>🚗 Vehicle Rentals</h2>
+        {% if vehicle_rentals %}
+        <p>Below are the details of the vehicle rentals made by the customer:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Vehicle Name</th>
+                    <th>Rental Duration</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Driver Required</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rental in vehicle_rentals %}
+                <tr>
+                    <td>{{ rental.rental.name }}</td>
+                    <td>{{ rental.rental_duration }}</td>
+                    <td>{{ rental.from_date.strftime('%B %d, %Y') }}</td>
+                    <td>{{ rental.to_date.strftime('%B %d, %Y') }}</td>
+                    <td>{{ 'Yes' if rental.driver_required else 'No' }}</td>
+                    <td>₹{{ rental.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-data">No vehicle rentals found for this customer.</p>
+        {% endif %}
+    </div>
+
+    <hr>
+
+    <!-- Granite Orders Section -->
+    <div class="section">
+        <h2>🪨 Granite Orders</h2>
+        {% if granite_orders %}
+        <p>Below are the details of the granite orders placed by the customer:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order Date</th>
+                    <th>Granite Type</th>
+                    <th>Square Feet</th>
+                    <th>Amount</th>
+                    <th>Fabrication Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in granite_orders %}
+                    {% for item in order.order_items %}
+                    <tr>
+                        <td>
+                            {% if order.order_date %}
+                                {{ order.order_date.strftime('%B %d, %Y') }}
+                            {% else %}
+                                <span class="no-data">No Date</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ item.granite.name }}</td>
+                        <td>{{ item.square_feet }}</td>
+                        <td>₹{{ item.amount }}</td>
+                        <td>
+                            {% if item.fabrication %}
+                            <ul>
+                                <li><strong>Edging:</strong> {{ item.fabrication.edging }}</li>
+                                <li><strong>Thickness:</strong> {{ item.fabrication.thickness }}</li>
+                                <li><strong>Shaping:</strong> {{ item.fabrication.shaping }}</li>
+                                <li><strong>Fabrication Fee:</strong> ₹{{ item.fabrication.fabrication_fee }}</li>
+                            </ul>
+                            {% else %}
+                            <span class="no-data">No Fabrication Added</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-data">No granite orders found for this customer.</p>
+        {% endif %}
+    </div>
+
+    <hr>
+
+    <!-- Navigation Buttons -->
+    <a href="{{ url_for('customer_details') }}" class="btn">🔙 Back to Customer Details</a>
+    <a href="{{ url_for('home') }}" class="btn">🏠 Home</a>
+</body>
+</html>

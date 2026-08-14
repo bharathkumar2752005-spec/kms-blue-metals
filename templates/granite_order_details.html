@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Granite Order Details</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 100%);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-top: 5px solid #6a11cb;
+        }
+
+        h2 {
+            color: #6a11cb;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        h2:after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            border-radius: 2px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        thead {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #5900b3, #0066ff);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(90deg, #11998e, #38ef7d);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(90deg, #0e8a7f, #32d571);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .navigation a {
+            margin: 0 10px;
+        }
+
+        .fabrication-status {
+            font-weight: 600;
+            color: #6a11cb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Granite Order Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Granite Type</th>
+                    <th>Square Feet</th>
+                    <th>Amount</th>
+                    <th>Fabrication Fee</th>
+                    <th>Total Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.order_items %}
+                <tr>
+                    <td>{{ item.granite.name }}</td>
+                    <td>{{ item.square_feet }}</td>
+                    <td>₹{{ item.amount }}</td>
+                    <td>{{ item.fabrication.fabrication_fee if item.fabrication else 'N/A' }}</td>
+                    <td>₹{{ item.amount + (item.fabrication.fabrication_fee if item.fabrication else 0) }}</td>
+                    <td>
+                        {% if not item.fabrication %}
+                        <a href="{{ url_for('fabricate_granite', order_item_id=item.id) }}" class="btn btn-primary">Add
+                            Fabrication</a>
+                        {% else %}
+                        <span class="fabrication-status">Fabrication Added</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            <a href="{{ url_for('granite_shop') }}" class="btn btn-primary">Back to Shop</a>
+            <a href="{{ url_for('home') }}" class="btn btn-success">Done</a>
+        </div>
+    </div>
+</body>
+
+</html>
