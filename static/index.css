@@ -625,3 +625,53 @@ img {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* Mobile View Fixes */
+@media (max-width: 768px) {
+  /* 1. Header Layout Adjustments */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+  }
+
+  /* 2. Make Get a Quote button smaller on mobile */
+  .get-a-quote-btn {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    margin-right: 10px;
+  }
+
+  /* 3. Hamburger Menu Position */
+  .navbar-toggler {
+    display: block;
+    z-index: 1000;
+  }
+
+  /* 4. Mobile Menu Overlay Fix */
+  .nav-menu {
+    position: fixed;
+    top: 60px; /* Header height-க்கு ஏத்த மாதிரி மாத்திக்கோ */
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background-color: #1e293b; /* Header bg color */
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 30px;
+    transition: 0.3s ease-in-out;
+    z-index: 999;
+  }
+
+  /* When menu is active/clicked */
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-menu li {
+    margin: 15px 0;
+  }
+}

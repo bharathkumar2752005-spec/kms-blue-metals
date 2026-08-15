@@ -58,6 +58,14 @@
                 }, 3000);
             }
         });
+
+        const hamburger = document.querySelector(".navbar-toggler"); // அல்லது உன்னோட hamburger class name
+const navMenu = document.querySelector(".nav-menu"); // உன்னோட navigation links wrapper class name
+
+hamburger.addEventListener("click", () => {
+  navMenu.classList.toggle("active");
+});
+
     </script>
 </head>
 
